@@ -1,0 +1,29 @@
+.nav-bar{
+
+}
+.nav-link {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 4px;
+    cursor: pointer;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 2px;
+    background-color: #0dc6fd; /* Колір лінії */
+    transition: width 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.nav-link:hover::after,
+.nav-link:focus::after,
+.nav-link.active::after {
+    width: 90%;
+    opacity: 1;
+}
