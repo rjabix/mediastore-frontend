@@ -19,7 +19,7 @@ export default function AppleLogo({type = 'gray', width = '25px', height = '25px
             break;
         default:
             console.log("AppleLogo type not found");
-            return (<h1>AppleLogoTypeNotFound</h1>);
+            return (<></>);
     }
 
     return (

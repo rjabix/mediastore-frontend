@@ -1,5 +1,4 @@
 import React from 'react';
-import './BigPromo.css';
 import AppleLogo from "../apple_logo";
 
 export default function BigPromo() {
@@ -14,12 +13,33 @@ export default function BigPromo() {
         },
     ];
 
+    const [scrollPosition, setScrollPosition] = React.useState(0);
+
+    React.useEffect(() => {
+        const handleScroll = () => {
+            if (window.innerWidth > 768) {
+                setScrollPosition(window.scrollY);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []); // parallax effect
+
+    const style = {
+        transform: window.innerWidth > 768 ? `translateY(${-scrollPosition*0.5 + 680}px)` : 'none',
+        transition: 'transform 0.3s ease-out'
+    };
+
     return (
         <a href={promoItems[0].link}>
             {
                 promoItems[0].theme === 'dark' ?
                     //Dark theme
-                    <div className='promo rounded-xl bg-transparent justify-between flex bg-black'>
+                    <div className='promo rounded-xl justify-between flex bg-black' style={style}>
                         <div className='promo-left p-12'>
                             <div className='inline-flex items-center'>
                                 <AppleLogo type={"gray"} width={"25px"} height={"25px"}/>

@@ -4,6 +4,8 @@ import NewsCarousel from "../../components/NewsCarousel/NewsCarousel";
 import BigPromo from "../../components/BigPromo/BigPromo";
 import StoreHeader from "../../components/StoreHeader/StoreHeader";
 import CategoriesShortHList from "../../components/CategoriesShortHList/CategoriesShortHList";
+import ProductCard from "../../components/ProductCard/ProductCard";
+import PopularSection from "../../components/PopularSection/PopularSection";
 
 const HomePage = () => {
     return (
@@ -17,6 +19,9 @@ const HomePage = () => {
             <hr className="m-[15px] block border-gray-500 border-2 rounded-full"/>
 
             <BigPromo/>
+
+            <PopularSection/>
+
         </div>
     );
 };
