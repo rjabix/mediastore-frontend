@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+qodana.yaml
+/.github/workflows/qodana_code_quality.yml
