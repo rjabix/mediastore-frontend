@@ -1,21 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import './NewsCarousel.css';
 import '@mantine/carousel/styles.css';
 import {Carousel} from '@mantine/carousel';
 import {MantineProvider} from '@mantine/core';
+import {NewsContext} from "../../context/ShopContext";
 
 export default function NewsCarousel() {
     //Test for carousel
-    const carouselItems = [
-        {"title": "Discover the latest Samsung innovations!", "content": "And claim all you benefits quickly", "image": "https://cms-images.mmst.eu/jq6pdee2ul1f/6CY1IgV5iPmUhzDz4qva0l/513a728f4da22bed59ea181b4673c4bc/1ff64532-ee21-41bd-979c-cbc51971a710.png?q=88&fm=jpg&w=495", "link": "/news/1"},
-        {"title": "News 2", "content": "Content 2", "image": "https://via.placeholder.com/150", 'link': '/news/2'},
-        {
-            "title": "News 3",
-            "content": "Content 3ksdfh asffa afdf saa saaaaa dfdff",
-            "image": 'https://via.placeholder.com/150',
-            'link': '/news/3'
-        },
-    ];
+    const carouselItems = useContext(NewsContext);
 
     return (
         <frame className='border-2 border-gray-500 rounded-xl'>

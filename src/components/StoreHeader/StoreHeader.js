@@ -6,7 +6,7 @@ export default function StoreHeader() {
     return (
         <div className="flex justify-between items-center bg-gray-50 p-8">
             <div>
-                <h1 className="text-5xl font-bold text-gray-800">Store.</h1>
+                <h1 className="text-5xl font-bold text-gray-800 gradient-text_big">Store.</h1>
                 <p className="text-3xl text-gray-500">The best way to buy the products you love.</p>
             </div>
             <div className="text-right">
