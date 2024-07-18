@@ -1,80 +1,40 @@
 import SmallVerticalProductCard from "../SmallVerticalProductCard/SmallVerticalProductCard";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {API_URL} from "../../context/ShopContext";
 
 export default function PopularSection() {
-    //implement the PopularSection data from db here
-    const data = [{
-        'image': 'https://via.placeholder.com/100',
-        'title': 'Placeholder',
-        'price': '85',
-        'link': '/products/placeholder',
-        'rating': 2,
-        'reviews': 15,
-        'specialTags': ['Weekend']
-    },
-        {
-            'image': 'https://via.placeholder.com/150',
-            'title': 'Placeholderababagalamaga one two three',
-            'price': '79',
-            'link': '/products/placeholder',
-            'rating': 4,
-            'reviews': 30,
-            'specialTags': ['Weekend', 'Summer sale']
-        },
-        {
-            'image': 'https://via.placeholder.com/150',
-            'title': 'Placeholder',
-            'price': '150',
-            'link': '/products/placeholder',
-            'rating': 4,
-            'reviews': 30,
-            'specialTags': ['Weekend', 'Summer sale']
-        },
-        {
-            'image': 'https://via.placeholder.com/150',
-            'title': 'Placeholder',
-            'price': '150',
-            'link': '/products/placeholder',
-            'rating': 4,
-            'reviews': 30,
-            'specialTags': []
-        },
-        {
-            'image': 'https://via.placeholder.com/150',
-            'title': 'Placeholder',
-            'price': '150',
-            'link': '/products/placeholder',
-            'rating': 4,
-            'reviews': 30,
-            'specialTags': []
-        },
-        {
-            'image': 'https://via.placeholder.com/150',
-            'title': 'Placeholder',
-            'price': '150',
-            'link': '/products/placeholder',
-            'rating': 4,
-            'reviews': 30,
-            'specialTags': []
-        },
-        {
-            'image': 'https://via.placeholder.com/150',
-            'title': 'Placeholder',
-            'price': '150',
-            'link': '/products/placeholder',
-            'rating': 4,
-            'reviews': 30,
-            'specialTags': [],
-            'oldprice': '200'
-        },
-    ]
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        fetch(API_URL + '/mediastoreproduct/popular')
+            .then(response => response.json())
+            .then(data => {
+                setData(data);
+            })
+            .catch(error => console.error('Error:', error));
+    }, []);
     return (
         <div className='grid grid-cols-5 gap-4'>
             {data.map((product, index) => (
-                <SmallVerticalProductCard image={product.image} link={product.link} specialTags={product.specialTags}
+                <SmallVerticalProductCard image={product.image} id={product.id} category={CategoryIdToString(product.category)} specialTags={product.specialTags}
                                           title={product.title} rating={product.rating} reviews={product.reviews}
                                           price={product.price} oldprice={product.oldprice}/>
             ))}
         </div>
     );
+}
+
+export function CategoryIdToString(category){
+    switch(category){
+        case 0: return 'smartphones';
+        case 1: return 'laptops';
+        case 2: return 'tablets';
+        case 3: return 'tvs';
+        case 4: return 'monitors';
+        case 5: return 'headphones';
+        case 6: return 'computers';
+        case 7: return 'accessories';
+        case 8: return 'vr';
+        case 9: return 'watches';
+        default: throw new Error('Invalid category id');
+    }
 }
