@@ -4,7 +4,7 @@ import './BigHorizontalProductCard.css';
 
 export default function BigHorizontalProductCard({image, title, price, rating, reviews, specialTags, id, category, oldprice, info1, info2, info3, info4, info5, info6}) {
     const discount = oldprice ? Math.ceil((1 - price / oldprice) * 100) : null;
-    const link = `/products/${category}/${id}`;
+    const link = `/product/${category}/${id}`;
 
     function Info({label, property}){
         let propertyLabel = property;

@@ -17,6 +17,7 @@ import LoginSignUpPage from "./pages/LoginSignUpPage/LoginSignUpPage";
 import Footer from "./components/Footer/Footer";
 import SingleCategoryPage from "./pages/SingleCategoryPage/SingleCategoryPage";
 import {CategoryContext, CategoryProvider} from "./context/ShopContext";
+import ProductPage from "./pages/ProductPage/ProductPage";
 
 const App = () => {
     return (
@@ -29,6 +30,7 @@ const App = () => {
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="/categories" element={<CategoriesPage/>}/>
                 <Route path='/categories/:category' element={<SingleCategoryPage/>}/>
+                <Route path="/product/:category/:productId" element={<ProductPage/>}/>
                 <Route path="/products" element={<ProductsListPage/>}/>
                 {/*<Route path="/products/:productId" element={<SingleProductsPage/>}/>*/}
                 <Route path="/stores" element={<StoresPage/>}/>

@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function SmallVerticalProductCard({image, title, price, rating, reviews, specialTags, id, category, oldprice}) {
     let discount;
-    const link = `/products/${category}/${id}`;
+    const link = `/product/${category}/${id}`;
     if(oldprice !== undefined && oldprice !== null) {
         discount = Math.ceil((1 - price / oldprice) * 100);
     }

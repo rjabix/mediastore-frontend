@@ -56,7 +56,6 @@ export default function SingleCategoryPage() {
             name: filter,
             options: filterOptions[filter] || []
         })));
-        console.log(formattedFilters);
     }, [filters, products]);
 
     const productInfoToDisplay = GetInfoToDisplay(category);
