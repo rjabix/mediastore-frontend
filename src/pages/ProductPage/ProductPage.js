@@ -18,16 +18,41 @@ export default function ProductPage() {
     const user_location = 'New York, NY';
 
     const [product, setProduct] = useState(null);
+    const [description, setDescription] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:5298/mediastoreproduct/${category}/${productId}`)
+        const abortController = new AbortController();
+        const signal = abortController.signal;
+        fetch(`http://localhost:5298/mediastoreproduct/${category}/${productId}`, { signal })
             .then(response => response.json())
             .then(product => setProduct(product))
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                if (error.name === 'AbortError') {
+                    console.log('Fetch aborted');
+                } else {
+                    console.error('Error:', error);
+                }
+            });
+
+        fetch(`http://localhost:5298/mediastoreproduct/${category}/${productId}/description`, { signal })
+            .then(response => {
+                if(!response.ok) throw new Error('No description is available for this product'); //checking whether description is available
+                return response.text();
+            })
+            .then(description => setDescription(description))
+            .catch(error => {
+                if (error.name === 'AbortError') {
+                    console.log('Fetch aborted');
+                } else {
+                    console.error('Error:', error);
+                }
+            });
+
+        return () => abortController.abort();
     }, [category, productId]);
 
     return (product === null || product === undefined ? <div>Loading...</div> :
-            <div className='m-1'>
+            <main className='m-1'>
                 <div className='flex justify-start space-x-3 text-lg p-5 border-b'
                      style={{alignItems: 'center'}}> {/*nav div at the top*/}
                     <a href='/'><HiOutlineHome className='text-2xl'/> </a>
@@ -129,8 +154,14 @@ export default function ProductPage() {
 
                 <div className='border-t p-5 mt-12'>
                 </div>
-
-
-            </div>
+                {description === null || description === undefined ? ( //description part
+                    <></>
+                ) : (
+                    <>
+                        <span className="flex justify-center text-2xl font-bold text-gray-900 mt-5">Description</span>
+                        <div dangerouslySetInnerHTML={{__html: description}} className='p-5 mt-5 text-gray-700'/>
+                    </>
+                )}
+            </main>
     )
 }

@@ -11,8 +11,10 @@ export default function SingleCategoryPage() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
+        const abortController = new AbortController();
+        const signal = abortController.signal;
         //fetching category info
-        fetch(API_URL + '/mediastorefilters/' + category)
+        fetch(API_URL + '/mediastorefilters/' + category, { signal })
             .then(response => response.json())
             .then(data => {
                 setFilterSections(data);
@@ -20,12 +22,14 @@ export default function SingleCategoryPage() {
             .catch(error => console.error('Error:', error));
 
         //fetching products
-        fetch(API_URL + '/mediastoreproduct/' + category)
+        fetch(API_URL + '/mediastoreproduct/' + category, { signal })
             .then(response => response.json())
             .then(data => {
                 setProducts(data);
             })
             .catch(error => console.error('Error:', error));
+
+        return () => abortController.abort();
 
     }, [category]);
 
