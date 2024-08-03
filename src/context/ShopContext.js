@@ -6,6 +6,8 @@ export const ProductContext = React.createContext(null);
 
 export const BigPromosContext = React.createContext(null);
 
+export const GeolocationContext = React.createContext(null);
+
 export const API_URL = 'http://localhost:5298';
 
 export function CategoryProvider(props) {
@@ -77,3 +79,25 @@ export function ProductProvider(props) {
         </ProductContext.Provider>
     );
 }
+
+
+export function GeolocationProvider ({ children }) { //in-dev
+    const [location, setLocation] = useState(null);
+
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                setLocation({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                });
+            });
+        }
+    }, []);
+
+    return (
+        <GeolocationContext.Provider value={location}>
+            {children}
+        </GeolocationContext.Provider>
+    );
+};
