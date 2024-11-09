@@ -15,16 +15,14 @@ import {API_URL, GeolocationContext} from "../../context/ShopContext";
 export default function ProductPage() {
     const category = useParams().category;
     const productId = useParams().productId;
-    const geolocation = useContext(GeolocationContext);;
-
+    const user_location = useContext(GeolocationContext) ?? 'New York, NY';
     const [product, setProduct] = useState(null);
     const [description, setDescription] = useState(null);
-    const [user_location, setUser_location] = useState('New York, NY');
 
     useEffect(() => {
         const abortController = new AbortController();
         const signal = abortController.signal;
-        fetch(`${API_URL}/mediastoreproduct/${category}/${productId}`, { signal })
+        fetch(`${API_URL}/product/${category}/${productId}`, { signal })
             .then(response => response.json())
             .then(product => setProduct(product))
             .catch(error => {
@@ -35,7 +33,7 @@ export default function ProductPage() {
                 }
             });
 
-        fetch(`${API_URL}/mediastoreproduct/${category}/${productId}/description`, { signal })
+        fetch(`${API_URL}/product/${category}/${productId}/description`, { signal })
             .then(response => {
                 if(!response.ok) throw new Error('No description is available for this product'); //checking whether description is available
                 return response.text();
@@ -51,21 +49,6 @@ export default function ProductPage() {
         return () => abortController.abort();
     }, [category, productId]);
 
-    useEffect(() => {
-        const abortController = new AbortController();
-        const signal = abortController.signal;
-        if (geolocation) {
-            fetch(`${API_URL}/mediastoregeolocation/city?lat=${geolocation.latitude}&lon=${geolocation.longitude}&lang=en-EN`, { signal })
-                .then(response => {
-                    if (!response.ok) throw new Error("Cannot get user location");
-                    return response.text();
-                })
-                .then(location => setUser_location(location))
-                .catch(error => console.error('Error:', error));
-        }
-
-        return () => abortController.abort();
-    }, [geolocation]);
     return (product === null || product === undefined ? <div>Loading...</div> :
             <main className='m-1'>
                 <div className='flex justify-start space-x-3 text-lg p-5 border-b'

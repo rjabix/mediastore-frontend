@@ -5,7 +5,7 @@ import {API_URL} from "../../context/ShopContext";
 export default function PopularSection() {
     const [data, setData] = useState([]);
     useEffect(() => {
-        fetch(API_URL + '/mediastoreproduct/popular')
+        fetch(API_URL + '/product/popular')
             .then(response => response.json())
             .then(data => {
                 setData(data);

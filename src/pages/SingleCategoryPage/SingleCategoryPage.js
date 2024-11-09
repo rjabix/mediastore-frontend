@@ -14,7 +14,7 @@ export default function SingleCategoryPage() {
         const abortController = new AbortController();
         const signal = abortController.signal;
         //fetching category info
-        fetch(API_URL + '/mediastorefilters/' + category, { signal })
+        fetch(API_URL + '/filters/' + category, { signal })
             .then(response => response.json())
             .then(data => {
                 setFilterSections(data);
@@ -22,7 +22,7 @@ export default function SingleCategoryPage() {
             .catch(error => console.error('Error:', error));
 
         //fetching products
-        fetch(API_URL + '/mediastoreproduct/' + category, { signal })
+        fetch(API_URL + '/product/' + category, { signal })
             .then(response => response.json())
             .then(data => {
                 setProducts(data);
