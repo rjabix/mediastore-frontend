@@ -8,6 +8,9 @@ import {NewsContext} from "../../context/ShopContext";
 export default function NewsCarousel() {
     //Test for carousel
     const carouselItems = useContext(NewsContext);
+    if(!carouselItems || carouselItems.length === 0) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <frame className='border-2 border-gray-500 rounded-xl'>

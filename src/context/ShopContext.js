@@ -8,7 +8,7 @@ export const BigPromosContext = React.createContext(null);
 
 export const GeolocationContext = React.createContext(null);
 
-export const API_URL = 'http://localhost:5298';
+export const API_URL = 'http://localhost:8000';
 
 export function CategoryProvider(props) {
     const [data, setData] = useState(null);
